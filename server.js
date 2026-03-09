@@ -1,7 +1,10 @@
+
 const express = require('express');
+const path = require('path'); // <-- ADICIONE ESTA LINHA
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // <-- E ADICIONE ESTA LINHA
 app.use(express.urlencoded({ extended: true }));
 
 // Bancos de dados em memória
@@ -84,4 +87,5 @@ app.post('/limpar-ongrid', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

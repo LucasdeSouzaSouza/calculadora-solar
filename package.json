@@ -1,0 +1,13 @@
+{
+  "name": "calculadora-solar",
+  "version": "1.0.0",
+  "description": "Sistema de Levantamento de Carga e Dimensionamento",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.22.1"
+  }
+}

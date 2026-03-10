@@ -1,56 +1,166 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Solar Pro</title>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; max-width: 800px; margin: auto; background-color: #f9f9fb; color: #333; }
-        h1, h2, h3 { color: #2c3e50; text-align: center; }
-        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #f9f9fb;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
         /* Estilos das Abas (Tabs) */
-        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .tab-btn { padding: 12px 24px; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; background-color: #e0e0e0; color: #555; transition: 0.3s; }
-        .tab-btn.active { background-color: #2c3e50; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        
-        /* Estilos do Formulário */
-        .form-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
-        .form-container input { flex: 1 1 150px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
-        .form-container button { flex: 1 1 100%; padding: 12px; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
-        
-        /* Botões Gerais */
-        .btn-verde { background-color: #27ae60; }
-        .btn-verde:hover { background-color: #219150; }
-        .btn-azul { background-color: #2980b9; }
-        .btn-azul:hover { background-color: #2471a3; }
-        .btn-excluir { background-color: #e74c3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; }
-        
-        /* O Novo Botão de PDF */
-        .btn-pdf { background-color: #8e44ad; color: white; border: none; padding: 12px; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 15px; transition: 0.3s;}
-        .btn-pdf:hover { background-color: #732d91; }
-        
-        /* Estilos da Tabela e Cards */
-        .table-wrapper { overflow-x: auto; background: white; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eee;}
-        table { border-collapse: collapse; width: 100%; min-width: 500px; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background-color: #34495e; color: white; }
-        
-        .card { margin-top: 20px; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
-        .card-baterias { background-color: #eef8ff; border-left: 5px solid #3498db;}
-        .card-paineis { background-color: #fff4e6; border-left: 5px solid #e67e22;}
-        .resultado-destaque { font-weight: bold; font-size: 1.2em; }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-        /* O TRUQUE DE MESTRE: Ocultar itens ao gerar PDF */
-        .gerando-pdf .esconder-no-pdf { display: none !important; }
-        .gerando-pdf body { background-color: white; } /* Deixa o fundo branco pro PDF */
+        .tab-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            color: #555;
+            transition: 0.3s;
+        }
 
+        .tab-btn.active {
+            background-color: #2c3e50;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .form-container input {
+            flex: 1 1 150px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            flex: 1 1 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        .btn-verde {
+            background-color: #27ae60;
+        }
+
+        .btn-verde:hover {
+            background-color: #219150;
+        }
+
+        .btn-azul {
+            background-color: #2980b9;
+        }
+
+        .btn-azul:hover {
+            background-color: #2471a3;
+        }
+
+        .btn-excluir {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 500px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .card {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-baterias {
+            background-color: #eef8ff;
+            border-left: 5px solid #3498db;
+        }
+
+        .card-paineis {
+            background-color: #fff4e6;
+            border-left: 5px solid #e67e22;
+        }
+
+        .resultado-destaque {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
     </style>
 </head>
+
 <body>
     <h1>Dimensionamento Fotovoltaico</h1>
+
+    <div style="text-align: right; margin-bottom: 15px;">
+        <a href="/logout" style="color: #e74c3c; text-decoration: none; font-weight: bold; font-size: 14px;">🚪 Sair do
+            Sistema</a>
+    </div>
 
     <div class="tabs">
         <button id="btn-ongrid" class="tab-btn active" onclick="mudarAba('ongrid')">On-Grid (Conta de Luz)</button>
@@ -59,37 +169,38 @@
 
     <div id="secao-ongrid">
         <h2>Sistema Conectado à Rede</h2>
-        <p style="text-align: center; color: #7f8c8d;">Ideal para reduzir a conta de energia.</p>
-        
+        <p style="text-align: center; color: #7f8c8d;">Ideal para reduzir a conta de energia na cidade.</p>
+
         <form class="form-container" action="/calcular-ongrid" method="POST">
-            <input type="number" name="consumoMensal" placeholder="Consumo Mensal (ex: 400 kWh)" required>
-            <button type="submit" class="btn-azul">Calcular Dimensionamento</button>
+            <input type="number" name="consumoMensal" placeholder="Consumo Médio Mensal (ex: 400 kWh)" required>
+            <button type="submit" class="btn-azul">Calcular Painéis</button>
         </form>
 
         <% if (dadosOnGrid) { %>
-            
-            <div id="relatorio-ongrid" style="padding: 10px; background: white;">
-                <div class="card card-paineis">
-                    <h3 style="text-align: left;">Orçamento: Arranjo Fotovoltaico</h3>
-                    <p>Para compensar um consumo de <strong><%= dadosOnGrid.consumoMensal %> kWh/mês</strong>, a potência recomendada no telhado é de: <br><br> <strong><%= dadosOnGrid.potenciaTelhado.toFixed(2) %> Wp</strong></p>
-                    <ul style="list-style: none; padding: 0;">
-                        <% paineis.forEach(function(painel) { %>
-                            <% let qtdPaineis = Math.ceil(dadosOnGrid.potenciaTelhado / painel.potenciaWp); %>
+            <div class="card card-paineis">
+                <h3>Arranjo Fotovoltaico Necessário</h3>
+                <p>Para um consumo de <%= dadosOnGrid.consumoMensal %> kWh/mês, a potência no telhado deve ser: <strong>
+                            <%= dadosOnGrid.potenciaTelhado.toFixed(2) %> Wp
+                        </strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <% paineis.forEach(function(painel) { %>
+                        <% let qtdPaineis=Math.ceil(dadosOnGrid.potenciaTelhado / painel.potenciaWp); %>
                             <li style="margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
-                                <strong><%= painel.modelo %>:</strong> 
-                                <span class="resultado-destaque" style="color: #d35400;"><%= qtdPaineis %></span> placa(s).
+                                <strong>
+                                    <%= painel.modelo %>:
+                                </strong>
+                                <span class="resultado-destaque" style="color: #d35400;">
+                                    <%= qtdPaineis %>
+                                </span> placa(s).
                             </li>
-                        <% }); %>
-                    </ul>
-                </div>
-            </div> <button onclick="gerarPDF('relatorio-ongrid', 'Orcamento_OnGrid_Solar')" class="btn-pdf">📄 Baixar Orçamento em PDF</button>
-
-            <form action="/limpar-ongrid" method="POST" style="margin-top: 15px;">
-                <button type="submit" class="btn-excluir" style="width: 100%;">Limpar Cálculo</button>
-            </form>
-        <% } %>
+                            <% }); %>
+                </ul>
+                <form action="/limpar-ongrid" method="POST" style="margin-top: 15px;">
+                    <button type="submit" class="btn-excluir" style="width: 100%;">Limpar Cálculo</button>
+                </form>
+            </div>
+            <% } %>
     </div>
-
 
     <div id="secao-offgrid" style="display: none;">
         <h2>Sistema Isolado com Baterias</h2>
@@ -102,70 +213,86 @@
             <button type="submit" class="btn-verde">Adicionar Equipamento</button>
         </form>
 
-        <% if (equipamentos.length > 0) { %>
-            
-            <div id="relatorio-offgrid" style="padding: 10px; background: white;">
-                <h3 style="text-align: left;">Relatório de Dimensionamento Off-Grid</h3>
-                <div class="table-wrapper">
-                    <table>
+        <% if (equipamentos.length> 0) { %>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Aparelho</th>
+                        <th>Pot.</th>
+                        <th>Tempo</th>
+                        <th>Consumo Dia</th>
+                        <th>Ação</th>
+                    </tr>
+                    <% equipamentos.forEach(function(eq) { %>
                         <tr>
-                            <th>Aparelho</th>
-                            <th>Pot.</th>
-                            <th>Tempo</th>
-                            <th>Consumo Dia</th>
-                            <th class="esconder-no-pdf">Ação</th> </tr>
-                        <% equipamentos.forEach(function(eq) { %>
-                            <tr>
-                                <td><%= eq.nome %></td>
-                                <td><%= eq.potencia %> W</td>
-                                <td><%= eq.horas %> h</td>
-                                <td><strong><%= eq.consumoDiario %> Wh</strong></td>
-                                <td class="esconder-no-pdf"> <form action="/deletar/<%= eq.id %>" method="POST" style="margin: 0;">
-                                        <button type="submit" class="btn-excluir">Excluir</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            <td>
+                                <%= eq.nome %>
+                            </td>
+                            <td>
+                                <%= eq.potencia %> W
+                            </td>
+                            <td>
+                                <%= eq.horas %> h
+                            </td>
+                            <td><strong>
+                                    <%= eq.consumoDiario %> Wh
+                                </strong></td>
+                            <td>
+                                <form action="/deletar/<%= eq.id %>" method="POST" style="margin: 0;">
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
                         <% }); %>
-                    </table>
-                </div>
+                </table>
+            </div>
 
-                <div class="card card-baterias">
-                    <h3 style="text-align: left;">Baterias Necessárias (Armazenamento)</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <% baterias.forEach(function(bat) { %>
-                            <% let quantidade = Math.ceil(totalOff / bat.capacidadeUtil); %>
+            <div class="card card-baterias">
+                <h3>Baterias Necessárias (Armazenamento)</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <% baterias.forEach(function(bat) { %>
+                        <% let quantidade=Math.ceil(totalOff / bat.capacidadeUtil); %>
                             <li style="margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
-                                <strong><%= bat.tipo %>:</strong> <span class="resultado-destaque" style="color: #2980b9;"><%= quantidade %></span> unidade(s).
+                                <strong>
+                                    <%= bat.tipo %>:
+                                </strong> <span class="resultado-destaque" style="color: #2980b9;">
+                                    <%= quantidade %>
+                                </span> unidade(s).
                             </li>
-                        <% }); %>
-                    </ul>
-                </div>
+                            <% }); %>
+                </ul>
+            </div>
 
-                <div class="card card-paineis">
-                    <h3 style="text-align: left;">Arranjo Fotovoltaico (Geração)</h3>
-                    <p>Potência mínima necessária no telhado: <strong><%= potenciaTelhadoOff.toFixed(2) %> Wp</strong></p>
-                    <ul style="list-style: none; padding: 0;">
-                        <% paineis.forEach(function(painel) { %>
-                            <% let qtdPaineis = Math.ceil(potenciaTelhadoOff / painel.potenciaWp); %>
+            <div class="card card-paineis">
+                <h3>Arranjo Fotovoltaico (Geração)</h3>
+                <p>Potência no telhado: <strong>
+                        <%= potenciaTelhadoOff.toFixed(2) %> Wp
+                    </strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <% paineis.forEach(function(painel) { %>
+                        <% let qtdPaineis=Math.ceil(potenciaTelhadoOff / painel.potenciaWp); %>
                             <li style="margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
-                                <strong><%= painel.modelo %>:</strong> <span class="resultado-destaque" style="color: #d35400;"><%= qtdPaineis %></span> placa(s).
+                                <strong>
+                                    <%= painel.modelo %>:
+                                </strong> <span class="resultado-destaque" style="color: #d35400;">
+                                    <%= qtdPaineis %>
+                                </span> placa(s).
                             </li>
-                        <% }); %>
-                    </ul>
-                </div>
-            </div> <button onclick="gerarPDF('relatorio-offgrid', 'Orcamento_OffGrid_Solar')" class="btn-pdf">📄 Baixar Orçamento em PDF</button>
-        <% } %>
+                            <% }); %>
+                </ul>
+            </div>
+            <% } %>
     </div>
 
-
     <script>
-        // Função para alternar entre On-Grid e Off-Grid
         function mudarAba(modo) {
+            // Pega os elementos do HTML
             const secOn = document.getElementById('secao-ongrid');
             const secOff = document.getElementById('secao-offgrid');
             const btnOn = document.getElementById('btn-ongrid');
             const btnOff = document.getElementById('btn-offgrid');
 
+            // Lógica de mostrar/esconder e mudar a cor do botão ativo
             if (modo === 'ongrid') {
                 secOn.style.display = 'block';
                 secOff.style.display = 'none';
@@ -178,27 +305,7 @@
                 btnOn.classList.remove('active');
             }
         }
-
-        // Função para Gerar o PDF
-        function gerarPDF(idDoRelatorio, nomeDoArquivo) {
-            // 1. Adiciona a classe que avisa o CSS para esconder os botões de excluir
-            document.body.classList.add('gerando-pdf');
-            
-            const elemento = document.getElementById(idDoRelatorio);
-            
-            const opcoes = {
-                margin:       15,
-                filename:     nomeDoArquivo + '.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 }, // Melhora a resolução do PDF
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // 2. Manda gerar o PDF e depois que salvar, volta os botões para a tela normal
-            html2pdf().set(opcoes).from(elemento).save().then(function() {
-                document.body.classList.remove('gerando-pdf');
-            });
-        }
     </script>
 </body>
+
 </html>

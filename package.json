@@ -1,13 +1,17 @@
+
 {
-  "name": "calculadora-solar",
+  "name": "calculadora-solar-saas",
   "version": "1.0.0",
-  "description": "Sistema de Levantamento de Carga e Dimensionamento",
+  "description": "Meu primeiro SaaS Fotovoltaico",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.22.1"
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.2.0"
   }
 }

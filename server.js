@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 // =======================================================
 // 1. CONEXÃO COM O BANCO DE DADOS (COLE SEU LINK AQUI)
 // =======================================================
-const MONGO_URI = 'COLE_SEU_LINK_AQUI'; // Substitua tudo entre as aspas pelo seu link!
+const MONGO_URI = 'mongodb+srv://dbsouzalucas:db_124522@cluster0.skikjpj.mongodb.net/?appName=Cluster0'; // Substitua tudo entre as aspas pelo seu link!
 
 mongoose.connect(MONGO_URI)
     .then(() => console.log('✅ Banco de Dados Conectado com Sucesso!'))
@@ -134,3 +134,4 @@ app.post('/limpar-ongrid', verificarLogin, (req, res) => { dadosOnGrid = null; r
 // =======================================================
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Servidor SaaS rodando na porta ${PORT}`));
+
